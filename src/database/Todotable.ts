@@ -33,4 +33,7 @@ export default class TodoTable extends Database {
     }
     return todos;
   }
+  public async updateTodoById(id: string, newData: string, column: "content" | "due_date") {
+    await this.dbRun(`UPDATE todo SET "${column}" = "${newData}" WHERE id = "${id}"`);
+  }
 }
