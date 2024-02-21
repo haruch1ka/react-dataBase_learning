@@ -3,7 +3,9 @@ import Database from "./Database";
 
 export default class TodoTable extends Database {
   public async createTodo(todo: Todo) {
-    await this.dbRun(`INSERT INTO todo (id, content, due_date, status) VALUES ("${todo.getId()}", "${todo.getContent()}", "${todo.getDueDate()}", "${todo.getStatus()}")`);
+    await this.dbRun(
+      `INSERT INTO todo (id, content, due_date, status) VALUES ("${todo.getId()}", "${todo.getContent()}", "${todo.getDueDate()}", "${todo.getStatus()}")`
+    );
   }
 
   public async selectTodoById(id: string) {
@@ -11,14 +13,23 @@ export default class TodoTable extends Database {
     return new Todo(data.id, data.content, data.due_date, data.status);
   }
   public async deleteAllTodos() {
-  await this.dbRun(`DELETE FROM todo`);
+    await this.dbRun(`DELETE FROM todo`);
   }
 
-  public async selectAllTodos():Promise<Todo[]>{
-    const todos : Todo[] = [];
+  public async selectAllTodos(): Promise<Todo[]> {
+    const todos: Todo[] = [];
     const result = await this.dbAll(`SELECT * FROM todo`);
-    for(let i = 0; i< result.length ;i++){
-      todos.push(new Todo(result[i].id,result[i].content, result[i].due_date,result[i].status));
+    for (let i = 0; i < result.length; i++) {
+      todos.push(new Todo(result[i].id, result[i].content, result[i].due_date, result[i].status));
+    }
+    return todos;
+  }
+
+  public async selectTodoByStatus(status: "running" | "completed"): Promise<Todo[]> {
+    const todos: Todo[] = [];
+    const result = await this.dbAll(`SELECT * FROM todo WHERE status = "${status}"`);
+    for (let i = 0; i < result.length; i++) {
+      todos.push(new Todo(result[i].id, result[i].content, result[i].due_date, result[i].status));
     }
     return todos;
   }

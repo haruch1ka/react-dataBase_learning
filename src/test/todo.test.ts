@@ -40,7 +40,7 @@ it("test - select all todos",async () => {
 
   for(let i = 0;i<todos.length; i++){
     await db.createTodo(todos[i]);
-  };
+  }
 
   //Act
   const selectedAllTodos =await db.selectAllTodos();
@@ -70,5 +70,29 @@ it("test - a todo specified by id",async ()=>{
 });
 
 it("test - todos specified by status",async ()=>{
+  //Arange
+
+  const id1 = uuidv4();
+  const id2 = uuidv4();
+  const id3 = uuidv4();
+  const id4 = uuidv4();
+  const db = new TodoTable();
+
+  const todos = [
+    new Todo(id1, "田中さんにメールする", "20230201", "completed"),
+    new Todo(id2, "報告書を提出する", "20230201", "completed"),
+    new Todo(id3, "会議を設定する", "20230301", "running"),
+    new Todo(id4, "出張の準備をする", "20230501", "running")
+  ];
+  for(let i = 0; i<todos.length; i++){
+    await db.createTodo(todos[i]);
+  }
   
+  //Act
+  const runningTodos = await db.selectTodoByStatus("running");
+  const completedTodos = await db.selectTodoByStatus("completed");
+
+  //Asert
+  expect(runningTodos).toEqual([todos[2],todos[3]]);
+  expect(completedTodos).toEqual([todos[0],todos[1]]);
 });
