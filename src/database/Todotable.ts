@@ -12,5 +12,14 @@ export default class TodoTable extends Database {
   }
   public async deleteAllTodos() {
   await this.dbRun(`DELETE FROM todo`);
-}
+  }
+
+  public async selectAllTodos():Promise<Todo[]>{
+    const todos : Todo[] = [];
+    const result = await this.dbAll(`SELECT * FROM todo`);
+    for(let i = 0; i< result.length ;i++){
+      todos.push(new Todo(result[i].id,result[i].content, result[i].due_date,result[i].status));
+    }
+    return todos;
+  }
 }
