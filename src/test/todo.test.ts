@@ -114,10 +114,10 @@ it("test - the content of the todo specified by id", async () => {
   await db.updateTodoById(id2, "報告書を課長に提出する", "content");
   //Asert
   const updateTodo = await db.selectTodoById(id2);
-  expect(updateTodo).toEqual(new Todo(id2,"報告書を課長に提出する","20230301","running"));
+  expect(updateTodo).toEqual(new Todo(id2, "報告書を課長に提出する", "20230301", "running"));
 });
 
-it("update the due_date of the todo specified by id",async ()=>{
+it("update the due_date of the todo specified by id", async () => {
   //Arange
   const id1 = uuidv4();
   const id2 = uuidv4();
@@ -127,34 +127,55 @@ it("update the due_date of the todo specified by id",async ()=>{
     new Todo(id1, "メールする田中さん", "20230201", "running"),
     new Todo(id2, "提出する報告書", "20230301", "running"),
   ];
-  for(let i =0; i<todos.length; i++){
+  for (let i = 0; i < todos.length; i++) {
     await db.createTodo(todos[i]);
   }
 
-  //Act 
+  //Act
   await db.deleteTodoById(id1);
 
   //Asert
   const allTodos = await db.selectAllTodos();
-  expect(allTodos).toEqual([todos[1]]);  
+  expect(allTodos).toEqual([todos[1]]);
 });
 
-it("change the status of the todo by id ", async ()=>{
-  //Arange 
+it("Delete a todo by id.", async () => {
+  //Arrange
   const id1 = uuidv4();
   const id2 = uuidv4();
   const db = new TodoTable();
   const todos = [
-    new Todo(id1,"田中さんにメールする","20230201","running"),
-    new Todo(id2,"報告書を提出する","20230301","running")
+    new Todo(id1, "田中さんにメールする。", "20230201", "running"),
+    new Todo(id2, "報告書を提出する。", "20230301", "running"),
   ];
-  for(let i = 0;i<todos.length;i++){
+  for (let i = 0; i < todos.length; i++) {
     await db.createTodo(todos[i]);
   }
-  //Act 
+
+  //Act
+  await db.deleteTodoById(id1);
+
+  //Asert
+  const allTodos = await db.selectAllTodos();
+  expect(allTodos).toEqual([todos[1]]);
+});
+
+it("change the status of the todo by id ", async () => {
+  //Arange
+  const id1 = uuidv4();
+  const id2 = uuidv4();
+  const db = new TodoTable();
+  const todos = [
+    new Todo(id1, "田中さんにメールする", "20230201", "running"),
+    new Todo(id2, "報告書を提出する", "20230301", "running"),
+  ];
+  for (let i = 0; i < todos.length; i++) {
+    await db.createTodo(todos[i]);
+  }
+  //Act
   await db.changeTodoById(id1);
 
   //Asert
   const completedTodo = await db.selectTodoById(id1);
-  expect(completedTodo).toEqual(new Todo(id1,"田中さんにメールする","20230201","completed"));
-})
+  expect(completedTodo).toEqual(new Todo(id1, "田中さんにメールする", "20230201", "completed"));
+});
