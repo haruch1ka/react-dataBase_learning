@@ -8,5 +8,5 @@ test("The Hello-Component displays paragraph.", () => {
   render(<Hello />);
 
   //Act
-  expect(screen.getByTestId("test-paragraph")).toHaveTextContent("Hello");
+  expect(screen.getByTestId("test-paragraph")).toHaveTextContent("こんにちは");
 });
