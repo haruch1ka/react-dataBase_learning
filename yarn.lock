@@ -4248,7 +4248,7 @@ eslint-plugin-react@latest:
     vite-node: ^1.3.0
     vite-plugin-node: ^3.1.0
     vite-tsconfig-paths: ^4.3.1
-    vitest: ^1.3.0
+    vitest: ^1.3.1
   languageName: unknown
   linkType: soft
 
@@ -6653,7 +6653,7 @@ eslint-plugin-react@latest:
   languageName: node
   linkType: hard
 
-"vitest@npm:^1.3.0":
+"vitest@npm:^1.3.1":
   version: 1.3.1
   resolution: "vitest@npm:1.3.1"
   dependencies:
