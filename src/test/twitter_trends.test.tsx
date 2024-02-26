@@ -6,7 +6,11 @@ import MyTwitterAPI from "../general/MyTwitterAPI";
 
 test("When clicking the button, twitter trends can be got.", () => {
   //Arrange
-  vi.spyOn(MyTwitterAPI.prototype, "getTrends").mockReturnValue(["foo", "bar", "hoge"]); //jest → vi
+  vi.spyOn(MyTwitterAPI.prototype, "getTrends").mockReturnValue([
+    "foo",
+    "bar",
+    "hoge",
+  ]); //jest → vi
   render(<Button />);
 
   //Act

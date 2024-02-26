@@ -11,11 +11,11 @@ app.get("/api/todos", async (req, res) => {
   const result = await db.selectAllTodos();
   res.status(200).json(result);
 });
-app.get("/api/todos/running",async(req,res)=>{
+app.get("/api/todos/running", async (req, res) => {
   const db = new TodoTable();
   const result = await db.selectTodoByStatus("running");
   res.status(200).json(result);
-})
+});
 
 app.get("/api/todos/running", async (req, res) => {
   const db = new TodoTable();
@@ -51,12 +51,12 @@ app.delete("/api/todos", async (req, res) => {
   res.status(200).json({ delete: "complete" });
 });
 
-app.patch("/api/todos",async (req,res)=>{
-  const {id} = req.body;
+app.patch("/api/todos", async (req, res) => {
+  const { id } = req.body;
   const db = new TodoTable();
   await db.changeTodoById(id);
 
-  res.status(200).json({change:"complete"});
+  res.status(200).json({ change: "complete" });
 });
 export default app;
 app.listen(3000);
