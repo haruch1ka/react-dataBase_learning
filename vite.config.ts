@@ -4,9 +4,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),tsconfigPaths()],
-  test:{
-    globals:true,
-    include:['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']
-  }
+  plugins: [react(), tsconfigPaths()],
+  test: {
+    globals: true,
+    environment: "jsdom", //jsdomにおけるtestEnvironmentの設定
+    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+  },
 });
