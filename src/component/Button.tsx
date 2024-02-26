@@ -1,15 +1,16 @@
 import React from "react";
-import MyTwitterAPI from "../general/MyTwitterAPI";
 
-const Button: React.FC = () => {
+interface ButtonProp {
+  Increment: () => void;
+  Decrement: () => void;
+}
+
+const Button: React.FC<ButtonProp> = ({ Increment, Decrement }) => {
   return (
     <div>
-      <div>
-        <p>hello</p>
-      </div>
-      <button onClick={() => new MyTwitterAPI().getTrends()}>Get Trends</button>
+      <button onClick={() => Increment()}>increment</button>
+      <button onClick={() => Decrement()}>decrement</button>
     </div>
   );
 };
-
 export default Button;
