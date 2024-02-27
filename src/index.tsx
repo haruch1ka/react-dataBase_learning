@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Count from "./component/Count";
+import TodoList from "./component/TodoList";
 
 const root = createRoot(document.getElementById("root"));
 
-root.render(<Count />);
+root.render(<TodoList />);
