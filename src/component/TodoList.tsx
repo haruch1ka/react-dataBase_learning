@@ -3,7 +3,7 @@ import TodoHook from "../customHook/TodoHook.ts";
 import ToRegister from "./ToRegister";
 
 const TodoList: React.FC = () => {
-  const { content, SetContent, due_date, SetDueDate } = TodoHook();
+  const { content, SetContent, due_date, SetDueDate,CreateTodo} = TodoHook();
   return (
     <>
       <ToRegister
@@ -11,6 +11,7 @@ const TodoList: React.FC = () => {
         SetContent={SetContent}
         due_date={due_date}
         SetDueDate={SetDueDate}
+        CreateTodo={CreateTodo}
       />
     </>
   );
