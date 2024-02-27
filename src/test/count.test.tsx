@@ -12,11 +12,15 @@ test("When clicking the buttons, value of the count changes.", async () => {
   await act(() => fireEvent.click(screen.getAllByRole("button")[0]));
 
   //Asert1
-  expect(screen.getByTestId("test-paragraph")).toHaveTextContent("Now Count is 2");
+  expect(screen.getByTestId("test-paragraph")).toHaveTextContent(
+    "Now Count is 2",
+  );
 
   //Act2
   await act(() => fireEvent.click(screen.getAllByRole("button")[1]));
 
   //Asert2
-  expect(screen.getByTestId("test-paragraph")).toHaveTextContent("Now Count is 1");
+  expect(screen.getByTestId("test-paragraph")).toHaveTextContent(
+    "Now Count is 1",
+  );
 });

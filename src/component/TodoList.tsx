@@ -6,7 +6,12 @@ const TodoList: React.FC = () => {
   const { content, SetContent, due_date, SetDueDate } = TodoHook();
   return (
     <>
-      <ToRegister content={content} SetContent={SetContent} due_date={due_date} SetDueDate={SetDueDate} />
+      <ToRegister
+        content={content}
+        SetContent={SetContent}
+        due_date={due_date}
+        SetDueDate={SetDueDate}
+      />
     </>
   );
 };

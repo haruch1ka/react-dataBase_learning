@@ -16,7 +16,10 @@ export default class MyFetch {
   }
 
   public async fetch() {
-    if (this.method === "POST" && this.url === "http://127.0.0.1:3000/api/todos") {
+    if (
+      this.method === "POST" &&
+      this.url === "http://127.0.0.1:3000/api/todos"
+    ) {
       await this.createTodo();
     }
   }
