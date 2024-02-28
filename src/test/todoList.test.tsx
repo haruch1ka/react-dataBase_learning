@@ -70,9 +70,7 @@ test("When push a register-button , the input fields of the content and due_date
   expect(screen.getByPlaceholderText("newDueDate")).toHaveValue("20230201");
 
   //Act2
-  await act(() => {
-    fireEvent.click(screen.queryByTestId("register-button"));
-  });
+  await act(() => fireEvent.click(screen.queryByTestId("register-button")));
 
   //Asert2
   expect(MyFetch.prototype.createTodo).toHaveBeenCalledTimes(1);
