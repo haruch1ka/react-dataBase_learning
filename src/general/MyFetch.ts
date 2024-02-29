@@ -19,6 +19,10 @@ export default class MyFetch {
     if (this.method === "POST" && this.url === "http://127.0.0.1:3000/api/todos/") {
       await this.createTodo();
     }
+    if (this.method === "GET" && this.url === "http://127.0.0.1:3000/api/todos/running/") {
+      console.log("######## run selectAllRunningTodos ########");
+      return await this.selectAllRunningTodos();
+    }
   }
 
   public async createTodo() {
@@ -29,5 +33,14 @@ export default class MyFetch {
       },
       body: JSON.stringify(this.body),
     });
+  }
+  public async selectAllRunningTodos() {
+    const todos: Todo[] = [];
+    const response = await fetch(this.url, { method: this.method });
+    const data = await response.json();
+    for (let i = 0; i < data.length; i++) {
+      todos.push(new Todo(data[i].id, data[i].content, data[i].due_date, data[i].status));
+    }
+    return todos;
   }
 }
