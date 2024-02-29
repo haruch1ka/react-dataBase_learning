@@ -115,3 +115,25 @@ test("When push a register-button , if the running todos is maximun limit , the 
   //Asert
   expect(screen.queryByTestId("limit-message")).toBeTruthy();
 });
+
+test("when render the RunningTodos-Component,all running-todos is displayed", async () => {
+  //Arrange
+  const todos = [
+    new Todo("1", "田中さんにメールする。", "20230201", "running"),
+    new Todo("2", "報告書を提出する。", "20230301", "running"),
+  ];
+  vi.sypOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue(todos);
+  //Act
+  await act(() => render(<TodoList />));
+  const contentFields = screen.getAllByPlaceholderText("registered-content");
+  const dueDateFields = screen.getAllByPlaceholderText("registered-due_date");
+
+  //Asert
+  expect(MyFetch.prototype.selectAllRunningTodos).toHaveBeenCalledTimes(1);
+  expect(contentFields.length).toBe(2);
+  expect(dueDateFields.length).toBe(2);
+  expect(contentFields[0]).toHaveValue("田中さんにメールする。");
+  expect(contentFields[1]).toHaveValue("報告書を提出する。");
+  expect(dueDateFields[0]).toHaveValue("20230201");
+  expect(dueDateFields[1]).toHaveValue("20230301");
+});
