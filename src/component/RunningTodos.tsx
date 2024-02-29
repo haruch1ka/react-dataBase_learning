@@ -5,29 +5,18 @@ interface RunningTodosProp {
   todos: Todo[];
 }
 
-const RunningTodos: React.FC<RunnningTodosProp> = ({ todos }) => {
-  return(
+const RunningTodos: React.FC<RunningTodosProp> = ({ todos }) => {
+  return (
     <>
-      <p>進行中Todo一覧</p>
-      {
-        todos.map((todo,i)=>{
-          <div key={todo.getId()}>
-            <input 
-              default ={todo.getContent()}
-              type = "text"
-              placeholder="registered-content"
-            >
-            </input>
-            <input 
-              defaultValue={todo.getDueDate()}
-              type="text"
-              placeholder = "registerd-due_date"
-            >
-            </input>
-          </div>
-        });
-      }
-    </>;
-
-  ) ;
+      <p>進行中のTodo一覧</p>
+      {todos.map((todo) => (
+        <div>
+          <input type="text" defaultValue={todo.getId()} placeholder="registered-content"></input>
+          <input type="text" defaultValue={todo.getId()} placeholder="registered-due_date"></input>
+        </div>
+      ))}
+    </>
+  );
 };
+
+export default RunningTodos;

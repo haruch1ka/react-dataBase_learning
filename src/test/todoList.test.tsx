@@ -122,7 +122,7 @@ test("when render the RunningTodos-Component,all running-todos is displayed", as
     new Todo("1", "田中さんにメールする。", "20230201", "running"),
     new Todo("2", "報告書を提出する。", "20230301", "running"),
   ];
-  vi.sypOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue(todos);
+  vi.spyOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue(todos);
   //Act
   await act(() => render(<TodoList />));
   const contentFields = screen.getAllByPlaceholderText("registered-content");
