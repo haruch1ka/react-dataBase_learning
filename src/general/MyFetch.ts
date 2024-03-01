@@ -20,8 +20,10 @@ export default class MyFetch {
       await this.createTodo();
     }
     if (this.method === "GET" && this.url === "http://127.0.0.1:3000/api/todos/running/") {
-      console.log("######## run selectAllRunningTodos ########");
       return await this.selectAllRunningTodos();
+    }
+    if (this.method === "PUT" && this.url === "http://127.0.0.1:3000/api/todos/") {
+      await this.updateTodo();
     }
   }
 
@@ -42,5 +44,14 @@ export default class MyFetch {
       todos.push(new Todo(data[i].id, data[i].content, data[i].due_date, data[i].status));
     }
     return todos;
+  }
+  public async updateTodo() {
+    await fetch(this.url, {
+      method: this.method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(this.body),
+    });
   }
 }

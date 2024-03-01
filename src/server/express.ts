@@ -28,7 +28,6 @@ app.get("/api/todos/completed", async (req, res) => {
   res.status(200).json(result);
 });
 app.post("/api/todos", async (req, res) => {
-  console.log(req.body);
   const { id, content, due_date, status } = req.body;
   const todo = new Todo(id, content, due_date, status);
   const db = new TodoTable();

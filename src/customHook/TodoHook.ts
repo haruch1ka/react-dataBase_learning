@@ -4,17 +4,19 @@ import Todo from "../general/Todo.ts";
 import { v4 as uuidv4 } from "uuid";
 import MyFetch from "../general/MyFetch";
 
+import TodoUpdateData from "../general/TodoUpdateData";
+
 const TodoHook = () => {
   const [content, setContent] = useState<string>("");
   const [due_date, setDueDate] = useState<string>("");
-  const [todos, setTodos] = useState<[Todo[]]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [updateData, setUpdateData] = useState<string>("f9920f04-943d-7223-7737-f5ef51e46dda");
 
   const SetContent = (content: string) => {
     setContent(content);
   };
 
   const SetDueDate = (due_date: string) => {
-    console.log(due_date);
     setDueDate(due_date);
   };
 
@@ -45,6 +47,18 @@ const TodoHook = () => {
     setTodos(todos);
   };
 
+  const SetUpdateData = async (date: string) => {
+    setUpdateData(date);
+  };
+
+  const UpdateTodo = async (id: stiring, column: "content" | "due_date") => {
+    if (updateData === "f9920f04-943d-7223-7737-f5ef51e46dda") return;
+    const todoUpdateData = new TodoUpdateData(id, updateData, column);
+    const myFetch = new MyFetch("PUT", "http://127.0.0.1:3000/api/todos/", todoUpdateData);
+    await myFetch.fetch();
+    setUpdateData("f9920f04-943d-7223-7737-f5ef51e46dda");
+  };
+
   return {
     content,
     SetContent,
@@ -53,6 +67,8 @@ const TodoHook = () => {
     CreateTodo,
     todos,
     SelectAndSetTodos,
+    SetUpdateData,
+    UpdateTodo,
   };
 };
 

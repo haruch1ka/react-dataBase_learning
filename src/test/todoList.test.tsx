@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent, act, cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/vitest";
 import TodoList from "../component/TodoList";
 import Todo from "../general/Todo";
@@ -9,6 +10,10 @@ import MyFetch from "../general/MyFetch";
 beforeAll(() => {
   vi.spyOn(MyFetch.prototype, "createTodo").mockResolvedValue();
   vi.spyOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue([]);
+  vi.spyOn(MyFetch.prototype, "updateTodo").mockResolvedValue();
+});
+beforeEach(() => {
+  cleanup();
 });
 
 test("When input values to both the content-state and due_date-state,a register button is displayed.", async () => {
@@ -136,4 +141,32 @@ test("when render the RunningTodos-Component,all running-todos is displayed", as
   expect(contentFields[1]).toHaveValue("報告書を提出する。");
   expect(dueDateFields[0]).toHaveValue("20230201");
   expect(dueDateFields[1]).toHaveValue("20230301");
+});
+
+test("When unfocus a form after editing the content or due_data of a todo , it is updated", async () => {
+  //Arange
+  const todos = [new Todo("1", "報告書を提出する。", "20230301", "running")];
+  vi.spyOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue(todos);
+
+  await act(() => render(<TodoList />));
+  const contentElem = screen.getByPlaceholderText("registered-content");
+  const dueDateElem = screen.getByPlaceholderText("registered-due_date");
+
+  //Act1
+  await act(() => contentElem.focus());
+  await act(() => dueDateElem.focus());
+
+  //Asert1
+  expect(MyFetch.prototype.updateTodo).toHaveBeenCalledTimes(0);
+
+  //Act2
+  await act(() => userEvent.type(contentElem, "大西課長に。"));
+
+  await act(() => {
+    dueDateElem.focus();
+  });
+
+  //Asert2
+  expect(dueDateElem).toHaveFocus();
+  expect(MyFetch.prototype.updateTodo).toHaveBeenCalledTimes(1);
 });
