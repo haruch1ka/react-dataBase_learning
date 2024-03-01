@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, fireEvent, act, cleanup } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  cleanup,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/vitest";
 import TodoList from "../component/TodoList";
@@ -77,7 +83,9 @@ test("When push a register-button , the input fields of the content and due_date
 
   //Asert1
   expect(MyFetch.prototype.createTodo).toHaveBeenCalledTimes(0);
-  expect(screen.getByPlaceholderText("newContent")).toHaveValue("田中さんにメールする。");
+  expect(screen.getByPlaceholderText("newContent")).toHaveValue(
+    "田中さんにメールする。",
+  );
   expect(screen.getByPlaceholderText("newDueDate")).toHaveValue("20230201");
 
   //Act2

@@ -1,7 +1,7 @@
 import express from "express";
 
-import TodoTable from "../database/TodoTable";
-import Todo from "../general/Todo";
+import TodoTable from "../database/TodoTable.ts";
+import Todo from "../general/Todo.ts";
 
 const app = express();
 app.use(express.json()); // body-parser settings

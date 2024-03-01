@@ -6,15 +6,28 @@ import RunningTodos from "./RunningTodos";
 
 const TodoList: React.FC = () => {
   const runningTodosLimit: number = 5;
-  const { content, SetContent, due_date, SetDueDate, CreateTodo, todos, SelectAndSetTodos, SetUpdateData, UpdateTodo } =
-    TodoHook();
+  const {
+    content,
+    SetContent,
+    due_date,
+    SetDueDate,
+    CreateTodo,
+    todos,
+    SelectAndSetTodos,
+    SetUpdateData,
+    UpdateTodo,
+  } = TodoHook();
 
   useEffect(() => {
     SelectAndSetTodos();
   }, []);
   return (
     <>
-      <RunningTodos todos={todos} SetUpdateData={SetUpdateData} UpdateTodo={UpdateTodo} />
+      <RunningTodos
+        todos={todos}
+        SetUpdateData={SetUpdateData}
+        UpdateTodo={UpdateTodo}
+      />
       {runningTodosLimit > todos.length ? (
         <ToRegister
           content={content}

@@ -7,7 +7,11 @@ interface RunningTodosProp {
   UpdateTodo: (id: string, column: "content" | "due_date") => void;
 }
 
-const RunningTodos: React.FC<RunningTodosProp> = ({ todos, SetUpdateData, UpdateTodo }) => {
+const RunningTodos: React.FC<RunningTodosProp> = ({
+  todos,
+  SetUpdateData,
+  UpdateTodo,
+}) => {
   return (
     <>
       <p>進行中のTodo一覧</p>

@@ -1,4 +1,4 @@
-export default class TodoUpDateData {
+export default class TodoUpdateData {
   private id: string;
   private updateData: string;
   private column: "content" | "due_date";
