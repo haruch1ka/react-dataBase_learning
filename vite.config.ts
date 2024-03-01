@@ -10,4 +10,7 @@ export default defineConfig({
     environment: "jsdom", //jsdomにおけるtestEnvironmentの設定
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
+  server: {
+    port: "3000",
+  },
 });

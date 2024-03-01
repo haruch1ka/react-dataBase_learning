@@ -4,7 +4,7 @@ import Todo from "../general/Todo.ts";
 import { v4 as uuidv4 } from "uuid";
 import MyFetch from "../general/MyFetch";
 
-import TodoUpdateData from "../general/TodoUpdateData";
+import TodoUpdateData from "../general/TodoUpDateData";
 
 const TodoHook = () => {
   const [content, setContent] = useState<string>("");
