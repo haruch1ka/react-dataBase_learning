@@ -68,4 +68,7 @@ app.patch("/api/todos", async (req, res) => {
   res.status(200).json({ change: "complete" });
 });
 export default app;
+
+//expressのかわりにviteExpressを使う
+
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
