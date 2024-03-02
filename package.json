@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sqlite3": "^5.1.7",
+    "vite-express": "^0.15.0",
     "vite-plugin-node": "^3.1.0"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@vitejs/plugin-react": "^4.2.1",
+    "cors": "^2.8.5",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "latest",

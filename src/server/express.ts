@@ -1,10 +1,20 @@
 import express from "express";
-
+import ViteExpress from "vite-express";
+import cors from "cors";
 import TodoTable from "../database/Todotable";
 import Todo from "../general/Todo.ts";
 
 const app = express();
-app.use(express.json()); // body-parser settings
+
+app.use(express.json());
+
+// CORSでhttp://localhost:3000からのリクエストを許可
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.get("/api/todos", async (_req, res) => {
   const db = new TodoTable();
@@ -58,4 +68,4 @@ app.patch("/api/todos", async (req, res) => {
   res.status(200).json({ change: "complete" });
 });
 export default app;
-app.listen(3000);
+ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
