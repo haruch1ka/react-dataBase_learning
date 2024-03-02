@@ -4,12 +4,13 @@ import Database from "./Database";
 export default class TodoTable extends Database {
   public async createTodo(todo: Todo) {
     await this.dbRun(
-      `INSERT INTO todo (id, content, due_date, status) VALUES ("${todo.getId()}", "${todo.getContent()}", "${todo.getDueDate()}", "${todo.getStatus()}")`,
+      `INSERT INTO todo (id, content, due_date, status) VALUES ("${todo.getId()}", "${todo.getContent()}", "${todo.getDueDate()}", "${todo.getStatus()}")`
     );
   }
 
   public async selectTodoById(id: string) {
     const data = await this.dbGet(`SELECT * FROM todo WHERE id = "${id}"`);
+    // eslint-disable-next-line
     return new Todo(data.id, data.content, data.due_date, data.status);
   }
   public async deleteAllTodos() {
@@ -20,45 +21,21 @@ export default class TodoTable extends Database {
     const todos: Todo[] = [];
     const result = await this.dbAll(`SELECT * FROM todo`);
     for (let i = 0; i < result.length; i++) {
-      todos.push(
-        new Todo(
-          result[i].id,
-          result[i].content,
-          result[i].due_date,
-          result[i].status,
-        ),
-      );
+      todos.push(new Todo(result[i].id, result[i].content, result[i].due_date, result[i].status));
     }
     return todos;
   }
 
-  public async selectTodoByStatus(
-    status: "running" | "completed",
-  ): Promise<Todo[]> {
+  public async selectTodoByStatus(status: "running" | "completed"): Promise<Todo[]> {
     const todos: Todo[] = [];
-    const result = await this.dbAll(
-      `SELECT * FROM todo WHERE status = "${status}"`,
-    );
+    const result = await this.dbAll(`SELECT * FROM todo WHERE status = "${status}"`);
     for (let i = 0; i < result.length; i++) {
-      todos.push(
-        new Todo(
-          result[i].id,
-          result[i].content,
-          result[i].due_date,
-          result[i].status,
-        ),
-      );
+      todos.push(new Todo(result[i].id, result[i].content, result[i].due_date, result[i].status));
     }
     return todos;
   }
-  public async updateTodoById(
-    id: string,
-    newData: string,
-    column: "content" | "due_date",
-  ) {
-    await this.dbRun(
-      `UPDATE todo SET "${column}" = "${newData}" WHERE id = "${id}"`,
-    );
+  public async updateTodoById(id: string, newData: string, column: "content" | "due_date") {
+    await this.dbRun(`UPDATE todo SET "${column}" = "${newData}" WHERE id = "${id}"`);
   }
   public async deleteTodoById(id: string) {
     await this.dbRun(`DELETE FROM todo WHERE id = "${id}"`);

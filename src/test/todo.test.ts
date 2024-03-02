@@ -112,9 +112,7 @@ it("test - the content of the todo specified by id", async () => {
   await db.updateTodoById(id2, "報告書を課長に提出する", "content");
   //Asert
   const updateTodo = await db.selectTodoById(id2);
-  expect(updateTodo).toEqual(
-    new Todo(id2, "報告書を課長に提出する", "20230301", "running"),
-  );
+  expect(updateTodo).toEqual(new Todo(id2, "報告書を課長に提出する", "20230301", "running"));
 });
 
 it("update the due_date of the todo specified by id", async () => {
@@ -177,7 +175,5 @@ it("change the status of the todo by id ", async () => {
 
   //Asert
   const completedTodo = await db.selectTodoById(id1);
-  expect(completedTodo).toEqual(
-    new Todo(id1, "田中さんにメールする", "20230201", "completed"),
-  );
+  expect(completedTodo).toEqual(new Todo(id1, "田中さんにメールする", "20230201", "completed"));
 });

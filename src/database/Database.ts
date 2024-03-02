@@ -11,10 +11,11 @@ export default abstract class Database {
     this.dbGet = promisify(db.get.bind(db));
     this.dbAll = promisify(db.all.bind(db));
     this.dbRun = function (arg: string) {
-      return new Promise<null>((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         db.run.apply(db, [
           arg,
           function (this: sqlite3.Database, err: Error) {
+            // eslint-disable-next-line
             err ? reject(err) : resolve(this);
           },
         ]);

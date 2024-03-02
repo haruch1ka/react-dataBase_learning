@@ -1,28 +1,28 @@
 import express from "express";
 
-import TodoTable from "../database/TodoTable.ts";
+import TodoTable from "../database/Todotable";
 import Todo from "../general/Todo.ts";
 
 const app = express();
 app.use(express.json()); // body-parser settings
 
-app.get("/api/todos", async (req, res) => {
+app.get("/api/todos", async (_req, res) => {
   const db = new TodoTable();
   const result = await db.selectAllTodos();
   res.status(200).json(result);
 });
-app.get("/api/todos/running", async (req, res) => {
+app.get("/api/todos/running", async (_req, res) => {
   const db = new TodoTable();
   const result = await db.selectTodoByStatus("running");
   res.status(200).json(result);
 });
 
-app.get("/api/todos/running", async (req, res) => {
+app.get("/api/todos/running", async (_req, res) => {
   const db = new TodoTable();
   const result = await db.selectTodoByStatus("running");
   res.status(200).json(result);
 });
-app.get("/api/todos/completed", async (req, res) => {
+app.get("/api/todos/completed", async (_req, res) => {
   const db = new TodoTable();
   const result = await db.selectTodoByStatus("completed");
   res.status(200).json(result);

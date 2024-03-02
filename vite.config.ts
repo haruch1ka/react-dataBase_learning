@@ -13,4 +13,5 @@ export default defineConfig({
   server: {
     port: "3000",
   },
+  setupFiles: "src/test/vitest.setup.ts",
 });
