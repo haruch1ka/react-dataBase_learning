@@ -34,6 +34,12 @@ export default class MyFetch {
     ) {
       await this.updateTodo();
     }
+    if(
+      this.method === "DELETE"&&
+      this.url === "http://127.0.0.1:3000/api/todos/"
+    ){
+      await this.deleteTodo();
+    }
   }
 
   public async createTodo() {
@@ -64,5 +70,15 @@ export default class MyFetch {
       },
       body: JSON.stringify(this.body),
     });
+  }
+
+  public async deleteTodo(){
+    await fetch(this.url,{
+      method:this.method,
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(this.body),
+    })
   }
 }

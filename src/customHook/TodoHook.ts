@@ -59,6 +59,14 @@ const TodoHook = () => {
     setUpdateData("f9920f04-943d-7223-7737-f5ef51e46dda");
   };
 
+  const DeleteTodo = async( id:string) =>{
+    const todoDeleteData = new TodoDeleteData(id);
+    const myFetch = new MyFetch("DELETE", "http://127.0.0.1:3000/api/todos/",todoDeleteData);
+    await myFetch.fetch();
+    const newTodos = todos.filter((todo, _ ) => todo.getId() !== id);
+    setTodos(newTodos);
+  };
+
   return {
     content,
     SetContent,
@@ -69,6 +77,7 @@ const TodoHook = () => {
     SelectAndSetTodos,
     SetUpdateData,
     UpdateTodo,
+    DeleteTodo
   };
 };
 
