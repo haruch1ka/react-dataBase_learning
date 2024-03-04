@@ -16,18 +16,16 @@ const TodoList: React.FC = () => {
     SelectAndSetTodos,
     SetUpdateData,
     UpdateTodo,
+    DeleteTodo,
   } = TodoHook();
 
   useEffect(() => {
     SelectAndSetTodos();
+    // eslint-disable-next-line
   }, []);
   return (
     <>
-      <RunningTodos
-        todos={todos}
-        SetUpdateData={SetUpdateData}
-        UpdateTodo={UpdateTodo}
-      />
+      <RunningTodos todos={todos} SetUpdateData={SetUpdateData} UpdateTodo={UpdateTodo} DeleteTodo={DeleteTodo} />
       {runningTodosLimit > todos.length ? (
         <ToRegister
           content={content}

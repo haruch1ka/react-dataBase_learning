@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import MyFetch from "../general/MyFetch";
 
 import TodoUpdateData from "../general/TodoUpdateData";
+import TodoDeleteData from "../general/TodoDeleteData";
 
 const TodoHook = () => {
   const [content, setContent] = useState<string>("");
@@ -59,11 +60,12 @@ const TodoHook = () => {
     setUpdateData("f9920f04-943d-7223-7737-f5ef51e46dda");
   };
 
-  const DeleteTodo = async( id:string) =>{
+  const DeleteTodo = async (id: string) => {
     const todoDeleteData = new TodoDeleteData(id);
-    const myFetch = new MyFetch("DELETE", "http://127.0.0.1:3000/api/todos/",todoDeleteData);
+    const myFetch = new MyFetch("DELETE", "http://127.0.0.1:3000/api/todos/", todoDeleteData);
     await myFetch.fetch();
-    const newTodos = todos.filter((todo, _ ) => todo.getId() !== id);
+    // eslint-disable-next-line
+    const newTodos = todos.filter((todo, _) => todo.getId() !== id);
     setTodos(newTodos);
   };
 
@@ -77,7 +79,7 @@ const TodoHook = () => {
     SelectAndSetTodos,
     SetUpdateData,
     UpdateTodo,
-    DeleteTodo
+    DeleteTodo,
   };
 };
 

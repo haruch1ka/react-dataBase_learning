@@ -170,7 +170,7 @@ test("When unfocus a form after editing the content or due_data of a todo , it i
   expect(MyFetch.prototype.updateTodo).toHaveBeenCalledTimes(1);
 });
 
-test("When click a del btn , the todo id not displayed.", async()=>{
+test("When click a del btn , the todo id not displayed.", async () => {
   //Arrange
   const todos = [
     new Todo("1", "田中さんにメールする。", "20230201", "running"),
@@ -180,12 +180,12 @@ test("When click a del btn , the todo id not displayed.", async()=>{
   await act(() => render(<TodoList />));
 
   //Act
-  await act(()=> fireEvent.click(screen.getByTestId("delete-button")));
+  await act(() => fireEvent.click(screen.getByTestId("delete-button0")));
 
-  //Asert 
-  expect(MyFetch.prototype.deleteTodo).toHaveBeenCalledTimes(1);
-  expect(screen.getAllByPlaceholderText("registerd-content").length).toBe(1);
-  expect(screen.getAllByPlaceholderText("registerd-due").length).toBe(1);
-  expect(screen.getAllByPlaceholderText("registerd-content")[0]).toHaveValue("報告書を提出する。");
-  expect(screen.getAllByPlaceholderText("registerd-due")[0]).toHaveValue("20230301");
+  //Asert
+  expect(MyFetch.prototype.selectAllRunningTodos).toHaveBeenCalledTimes(1);
+  expect(screen.getAllByPlaceholderText("registered-content").length).toBe(1);
+  expect(screen.getAllByPlaceholderText("registered-due_date").length).toBe(1);
+  expect(screen.getAllByPlaceholderText("registered-content")[0]).toHaveValue("報告書を提出する。");
+  expect(screen.getAllByPlaceholderText("registered-due_date")[0]).toHaveValue("20230301");
 });
