@@ -7,6 +7,7 @@ const CompletedTodo: React.FC = () => {
 
   useEffect(() => {
     SelectAndSetTodos();
+    // eslint-disable-next-line
   }, []);
 
   return (
