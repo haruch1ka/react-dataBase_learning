@@ -10,6 +10,7 @@ beforeAll(() => {
   vi.spyOn(MyFetch.prototype, "createTodo").mockResolvedValue();
   vi.spyOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue([]);
   vi.spyOn(MyFetch.prototype, "updateTodo").mockResolvedValue();
+  vi.spyOn(MyFetch.prototype, "changeTodo").mockResolvedValue();
 });
 beforeEach(() => {
   cleanup();
@@ -184,6 +185,25 @@ test("When click a del btn , the todo id not displayed.", async () => {
 
   //Asert
   expect(MyFetch.prototype.selectAllRunningTodos).toHaveBeenCalledTimes(1);
+  expect(screen.getAllByPlaceholderText("registered-content").length).toBe(1);
+  expect(screen.getAllByPlaceholderText("registered-due_date").length).toBe(1);
+  expect(screen.getAllByPlaceholderText("registered-content")[0]).toHaveValue("報告書を提出する。");
+  expect(screen.getAllByPlaceholderText("registered-due_date")[0]).toHaveValue("20230301");
+});
+test("When click a complete-button, the todo is not displayed.", async () => {
+  //Arrange
+  const todos = [
+    new Todo("1", "田中さんにメールする。", "20230201", "running"),
+    new Todo("2", "報告書を提出する。", "20230301", "running"),
+  ];
+  vi.spyOn(MyFetch.prototype, "selectAllRunningTodos").mockResolvedValue(todos);
+  await act(() => render(<TodoList />));
+
+  //Act
+  await act(() => fireEvent.click(screen.getByTestId("complete-button0")));
+
+  //Asert
+  expect(MyFetch.prototype.changeTodo).toHaveBeenCalledTimes(1);
   expect(screen.getAllByPlaceholderText("registered-content").length).toBe(1);
   expect(screen.getAllByPlaceholderText("registered-due_date").length).toBe(1);
   expect(screen.getAllByPlaceholderText("registered-content")[0]).toHaveValue("報告書を提出する。");

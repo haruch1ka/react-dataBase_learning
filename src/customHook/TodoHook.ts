@@ -6,6 +6,7 @@ import MyFetch from "../general/MyFetch";
 
 import TodoUpdateData from "../general/TodoUpdateData";
 import TodoDeleteData from "../general/TodoDeleteData";
+import TodoChangeData from "../general/TodoChangeData";
 
 const TodoHook = () => {
   const [content, setContent] = useState<string>("");
@@ -69,6 +70,14 @@ const TodoHook = () => {
     setTodos(newTodos);
   };
 
+  const ChangeTodo = async (id: string) => {
+    const todoChangeData = new TodoChangeData(id);
+    const myFetch = new MyFetch("PATCH", "http://127.0.0.1:3000/api/todos/", todoChangeData);
+    await myFetch.fetch();
+    // eslint-disable-next-line
+    const newTodos = todos.filter((todo, _) => todo.getId() !== id);
+    setTodos(newTodos);
+  };
   return {
     content,
     SetContent,
@@ -80,6 +89,7 @@ const TodoHook = () => {
     SetUpdateData,
     UpdateTodo,
     DeleteTodo,
+    ChangeTodo,
   };
 };
 

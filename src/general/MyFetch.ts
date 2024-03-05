@@ -28,6 +28,12 @@ export default class MyFetch {
     if (this.method === "DELETE" && this.url === "http://127.0.0.1:3000/api/todos/") {
       await this.deleteTodo();
     }
+    if (this.method === "PATCH" && this.url === "http://127.0.0.1:3000/api/todos/") {
+      await this.changeTodo();
+    }
+    if (this.method === "GET" && this.url === "http://127.0.0.1:3000/api/todos/completed/") {
+      return await this.selectAllRunningTodos();
+    }
   }
 
   public async createTodo() {
@@ -55,7 +61,18 @@ export default class MyFetch {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(this.body),
-    });
+    })
+      .then((response) => {
+        console.log("通信成功:del");
+        console.log(response);
+        if (!response.ok) {
+          console.error("サーバーエラー");
+        }
+        // ここに成功時の処理を記述
+      })
+      .catch((error) => {
+        console.error("通信に失敗しました", error);
+      });
   }
 
   public async deleteTodo() {
@@ -77,5 +94,14 @@ export default class MyFetch {
       .catch((error) => {
         console.error("通信に失敗しました", error);
       });
+  }
+  public async changeTodo() {
+    await fetch(this.url, {
+      method: this.method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(this.body),
+    });
   }
 }

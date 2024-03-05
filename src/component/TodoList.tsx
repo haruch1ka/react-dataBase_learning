@@ -3,6 +3,7 @@ import TodoHook from "../customHook/TodoHook.ts";
 import ToRegister from "./ToRegister";
 import LimitMessage from "./LimitMessage";
 import RunningTodos from "./RunningTodos";
+import Header from "./Header";
 
 const TodoList: React.FC = () => {
   const runningTodosLimit: number = 5;
@@ -17,6 +18,7 @@ const TodoList: React.FC = () => {
     SetUpdateData,
     UpdateTodo,
     DeleteTodo,
+    ChangeTodo,
   } = TodoHook();
 
   useEffect(() => {
@@ -25,7 +27,14 @@ const TodoList: React.FC = () => {
   }, []);
   return (
     <>
-      <RunningTodos todos={todos} SetUpdateData={SetUpdateData} UpdateTodo={UpdateTodo} DeleteTodo={DeleteTodo} />
+      <Header />
+      <RunningTodos
+        todos={todos}
+        SetUpdateData={SetUpdateData}
+        UpdateTodo={UpdateTodo}
+        DeleteTodo={DeleteTodo}
+        ChangeTodo={ChangeTodo}
+      />
       {runningTodosLimit > todos.length ? (
         <ToRegister
           content={content}

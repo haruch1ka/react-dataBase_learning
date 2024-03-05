@@ -6,8 +6,9 @@ interface RunningTodosProp {
   SetUpdateData: (data: string) => void;
   UpdateTodo: (id: string, column: "content" | "due_date") => void;
   DeleteTodo: (id: string) => void;
+  ChangeTodo: (id: string) => void;
 }
-const RunningTodos: React.FC<RunningTodosProp> = ({ todos, SetUpdateData, UpdateTodo, DeleteTodo }) => {
+const RunningTodos: React.FC<RunningTodosProp> = ({ todos, SetUpdateData, UpdateTodo, DeleteTodo, ChangeTodo }) => {
   return (
     <>
       <p>進行中のTodo一覧</p>
@@ -33,6 +34,9 @@ const RunningTodos: React.FC<RunningTodosProp> = ({ todos, SetUpdateData, Update
           ></input>
           <button data-testid={`delete-button${i}`} onClick={() => DeleteTodo(todo.getId())}>
             削除
+          </button>
+          <button data-testid={`complete-button${i}`} onClick={() => ChangeTodo(todo.getId())}>
+            完了
           </button>
         </div>
       ))}
