@@ -1,12 +1,14 @@
 //server
 import app from "../server/express";
 
-//Todo
+// //Todo
 import TodoTable from "../database/TodoTable";
 import Todo from "../general/Todo";
 import TodoUpDateData from "../general/TodoUpDateData";
 import TodoDeleteData from "../general/TodoDeleteData";
 import TodoChangeData from "../general/TodoChangeData";
+
+import request from "supertest";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,7 +20,7 @@ afterEach(async () => {
   await clearDB.deleteAllTodos();
 });
 
-it("The GET Method to the /api/todos can be got all todos.", async () => {
+test("The GET Method to the /api/todos can be got all todos.", async () => {
   //Arrange
   const id1 = uuidv4();
   const id2 = uuidv4();
@@ -39,7 +41,7 @@ it("The GET Method to the /api/todos can be got all todos.", async () => {
   expect(JSON.parse(response.text)).toEqual(todos);
 });
 
-it("The GET Method to the /api/todos/running can be got all running-todos.", async () => {
+test("The GET Method to the /api/todos/running can be got all running-todos.", async () => {
   //Arrange
   const id1 = uuidv4();
   const id2 = uuidv4();
@@ -62,7 +64,7 @@ it("The GET Method to the /api/todos/running can be got all running-todos.", asy
   expect(JSON.parse(response.text)).toEqual([todos[2], todos[3]]);
 });
 
-it("The GET Method to the /api/todos/completed can be got all completed-todos.", async () => {
+test("The GET Method to the /api/todos/completed can be got all completed-todos.", async () => {
   //Arrange
   const id1 = uuidv4();
   const id2 = uuidv4();
@@ -87,7 +89,7 @@ it("The GET Method to the /api/todos/completed can be got all completed-todos.",
   expect(JSON.parse(response.text)).toEqual([todos[0], todos[1]]);
 });
 
-it("POST method to /api/todos can be created a todo.", async () => {
+test("POST method to /api/todos can be created a todo.", async () => {
   //Arenge
   const id = uuidv4();
   const todo = new Todo(id, "会議を設定する", "20230401", "running");
@@ -103,7 +105,7 @@ it("POST method to /api/todos can be created a todo.", async () => {
   expect(selectedTodo).toEqual(todo);
 });
 
-it("PUT method to /api todos can update the todo ", async () => {
+test("PUT method to /api todos can update the todo ", async () => {
   //Arrange
   const id1 = uuidv4();
   const id2 = uuidv4();
@@ -136,7 +138,7 @@ it("PUT method to /api todos can update the todo ", async () => {
   expect(selectedTodo2).toEqual(new Todo(id2, "報告書を提出する。", "20230401", "completed"));
 });
 
-it("DELTE method to /api/todos can table the todo", async () => {
+test("DELTE method to /api/todos can table the todo", async () => {
   //Arange
   const db = new TodoTable();
   const id = uuidv4();
@@ -153,7 +155,7 @@ it("DELTE method to /api/todos can table the todo", async () => {
   expect(todos).toEqual([]);
 });
 
-it("PATCH method to /api/todos can be changed the status of the todo.", async () => {
+test("PATCH method to /api/todos can be changed the status of the todo.", async () => {
   //Arange
   const db = new TodoTable();
   const id = uuidv4();
