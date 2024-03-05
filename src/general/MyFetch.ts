@@ -16,22 +16,40 @@ export default class MyFetch {
   }
 
   public async fetch() {
-    if (this.method === "POST" && this.url === "http://127.0.0.1:3000/api/todos/") {
+    if (
+      this.method === "POST" &&
+      this.url === "http://127.0.0.1:3000/api/todos/"
+    ) {
       await this.createTodo();
     }
-    if (this.method === "GET" && this.url === "http://127.0.0.1:3000/api/todos/running/") {
+    if (
+      this.method === "GET" &&
+      this.url === "http://127.0.0.1:3000/api/todos/running/"
+    ) {
       return await this.selectAllRunningTodos();
     }
-    if (this.method === "PUT" && this.url === "http://127.0.0.1:3000/api/todos/") {
+    if (
+      this.method === "PUT" &&
+      this.url === "http://127.0.0.1:3000/api/todos/"
+    ) {
       await this.updateTodo();
     }
-    if (this.method === "DELETE" && this.url === "http://127.0.0.1:3000/api/todos/") {
+    if (
+      this.method === "DELETE" &&
+      this.url === "http://127.0.0.1:3000/api/todos/"
+    ) {
       await this.deleteTodo();
     }
-    if (this.method === "PATCH" && this.url === "http://127.0.0.1:3000/api/todos/") {
+    if (
+      this.method === "PATCH" &&
+      this.url === "http://127.0.0.1:3000/api/todos/"
+    ) {
       await this.changeTodo();
     }
-    if (this.method === "GET" && this.url === "http://127.0.0.1:3000/api/todos/completed/") {
+    if (
+      this.method === "GET" &&
+      this.url === "http://127.0.0.1:3000/api/todos/completed/"
+    ) {
       return await this.selectAllRunningTodos();
     }
   }
@@ -50,7 +68,9 @@ export default class MyFetch {
     const response = await fetch(this.url, { method: this.method });
     const data = await response.json();
     for (let i = 0; i < data.length; i++) {
-      todos.push(new Todo(data[i].id, data[i].content, data[i].due_date, data[i].status));
+      todos.push(
+        new Todo(data[i].id, data[i].content, data[i].due_date, data[i].status),
+      );
     }
     return todos;
   }

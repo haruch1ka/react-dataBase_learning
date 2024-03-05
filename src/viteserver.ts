@@ -3,7 +3,9 @@ import fs from "fs-extra";
 import path from "path";
 import { createServer } from "vite";
 
-export const createViteDevServer = async (cwd = path.resolve("../", "bacon-front-vite")) => {
+export const createViteDevServer = async (
+  cwd = path.resolve("../", "bacon-front-vite"),
+) => {
   if (!fs.existsSync(cwd)) throw new Error(`No such directory: ${cwd}`);
   const app = express.Router();
 

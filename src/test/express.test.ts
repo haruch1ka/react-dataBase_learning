@@ -34,7 +34,9 @@ test("The GET Method to the /api/todos can be got all todos.", async () => {
   }
 
   //Act
-  const response = await request(app).get("/api/todos").set("Accept", "application/json");
+  const response = await request(app)
+    .get("/api/todos")
+    .set("Accept", "application/json");
 
   //Asert
   expect(response.status).toEqual(200);
@@ -58,7 +60,9 @@ test("The GET Method to the /api/todos/running can be got all running-todos.", a
     await db.createTodo(todos[i]);
   }
   // //Act
-  const response = await request(app).get("/api/todos/running").set("Accept", "application/json");
+  const response = await request(app)
+    .get("/api/todos/running")
+    .set("Accept", "application/json");
   // //Asert
   expect(response.status).toEqual(200);
   expect(JSON.parse(response.text)).toEqual([todos[2], todos[3]]);
@@ -82,7 +86,9 @@ test("The GET Method to the /api/todos/completed can be got all completed-todos.
   }
 
   //Act
-  const response = await request(app).get("/api/todos/completed").set("Accept", "application/json");
+  const response = await request(app)
+    .get("/api/todos/completed")
+    .set("Accept", "application/json");
 
   //Asert
   expect(response.status).toEqual(200);
@@ -96,7 +102,10 @@ test("POST method to /api/todos can be created a todo.", async () => {
   const db = new TodoTable();
 
   //Act
-  const response = await request(app).post("/api/todos").send(todo).set("Accept", "application/json");
+  const response = await request(app)
+    .post("/api/todos")
+    .send(todo)
+    .set("Accept", "application/json");
 
   const selectedTodo = await db.selectTodoById(id);
 
@@ -118,24 +127,38 @@ test("PUT method to /api todos can update the todo ", async () => {
     await db.createTodo(todos[i]);
   }
 
-  const todoUpDateData1 = new TodoUpDateData(id1, "山本さんにメールする", "content");
+  const todoUpDateData1 = new TodoUpDateData(
+    id1,
+    "山本さんにメールする",
+    "content",
+  );
   const todoUpDateData2 = new TodoUpDateData(id2, "20230401", "due_date");
 
   //Act
-  const response1 = await request(app).put("/api/todos").send(todoUpDateData1).set("Accept", "application/json");
+  const response1 = await request(app)
+    .put("/api/todos")
+    .send(todoUpDateData1)
+    .set("Accept", "application/json");
   const selectedTodo1 = await db.selectTodoById(id1);
 
   // // //Act2
-  const response2 = await request(app).put("/api/todos").send(todoUpDateData2).set("Accept", "application/json");
+  const response2 = await request(app)
+    .put("/api/todos")
+    .send(todoUpDateData2)
+    .set("Accept", "application/json");
   const selectedTodo2 = await db.selectTodoById(id2);
 
   //Asert
   expect(response1.status).toEqual(200);
-  expect(selectedTodo1).toEqual(new Todo(id1, "山本さんにメールする", "20230201", "completed"));
+  expect(selectedTodo1).toEqual(
+    new Todo(id1, "山本さんにメールする", "20230201", "completed"),
+  );
 
   // //Asert
   expect(response2.status).toEqual(200);
-  expect(selectedTodo2).toEqual(new Todo(id2, "報告書を提出する。", "20230401", "completed"));
+  expect(selectedTodo2).toEqual(
+    new Todo(id2, "報告書を提出する。", "20230401", "completed"),
+  );
 });
 
 test("DELTE method to /api/todos can table the todo", async () => {
@@ -147,7 +170,10 @@ test("DELTE method to /api/todos can table the todo", async () => {
   const todoDeleteData = new TodoDeleteData(id);
 
   //Act
-  const response = await request(app).delete("/api/todos").send(todoDeleteData).set("Accept", "application/json");
+  const response = await request(app)
+    .delete("/api/todos")
+    .send(todoDeleteData)
+    .set("Accept", "application/json");
   const todos = await db.selectAllTodos();
 
   //Asert
@@ -164,11 +190,16 @@ test("PATCH method to /api/todos can be changed the status of the todo.", async 
   const todoChangeData = new TodoChangeData(id);
 
   //Act
-  const response = await request(app).patch("/api/todos").send(todoChangeData).set("Accept", "application/json");
+  const response = await request(app)
+    .patch("/api/todos")
+    .send(todoChangeData)
+    .set("Accept", "application/json");
 
   const selectedTodo = await db.selectTodoById(id);
 
   //Asert
   expect(response.status).toEqual(200);
-  expect(selectedTodo).toEqual(new Todo(id, "田中さんにメールする", "20230201", "completed"));
+  expect(selectedTodo).toEqual(
+    new Todo(id, "田中さんにメールする", "20230201", "completed"),
+  );
 });
